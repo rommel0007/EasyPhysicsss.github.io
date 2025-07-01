@@ -10,6 +10,7 @@
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
     import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+    // Configuración Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyBEoZUWxPNjkBbBxHULkXjWjLthGg63638",
       authDomain: "easyphysics-5c43e.firebaseapp.com",
@@ -20,24 +21,18 @@
       measurementId: "G-9P7CVZJB57"
     };
 
+    // Inicializar Firebase
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
     const db = getFirestore(app);
 
-    // Exponer funciones globales
-    window.firestore = db;
-    window.setDoc = setDoc;
-    window.doc = doc;
-  </script>
-
-  <!-- Script que usa las funciones de Firestore -->
-  <script>
+    // Función para guardar el usuario
     async function verificarUsuario() {
       const nombreUsuario = document.getElementById("usuario").value.trim();
       if (nombreUsuario !== "") {
         try {
-          const usuarioRef = window.doc(window.firestore, "usuarios", nombreUsuario);
-          await window.setDoc(usuarioRef, {
+          const usuarioRef = doc(db, "usuarios", nombreUsuario);
+          await setDoc(usuarioRef, {
             nombre: nombreUsuario,
             tests: []
           });
@@ -51,6 +46,9 @@
         alert("Por favor, ingresa tu nombre de usuario.");
       }
     }
+
+    // Asignar al botón
+    document.getElementById("btnIngresar").addEventListener("click", verificarUsuario);
   </script>
 
     <style>
