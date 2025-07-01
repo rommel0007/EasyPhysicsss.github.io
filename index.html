@@ -6,55 +6,53 @@
     <title>Inicio de Sesión</title>
 
     <script type="module">
-        import { initializeApp } from "firebase/app";       
-        import { getAnalytics } from "firebase/analytics";
+        <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-        // Configuración Firebase
-        const firebaseConfig = {
-  apiKey: "AIzaSyBEoZUWxPNjkBbBxHULkXjWjLthGg63638",
-  authDomain: "easyphysics-5c43e.firebaseapp.com",
-  projectId: "easyphysics-5c43e",
-  storageBucket: "easyphysics-5c43e.firebasestorage.app",
-  messagingSenderId: "339336730867",
-  appId: "1:339336730867:web:046da72c6c5f3aabf6ff86",
-  measurementId: "G-9P7CVZJB57"
-};
-        // Inicializar Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+    const firebaseConfig = {
+      apiKey: "AIzaSyBEoZUWxPNjkBbBxHULkXjWjLthGg63638",
+      authDomain: "easyphysics-5c43e.firebaseapp.com",
+      projectId: "easyphysics-5c43e",
+      storageBucket: "easyphysics-5c43e.firebasestorage.app",
+      messagingSenderId: "339336730867",
+      appId: "1:339336730867:web:046da72c6c5f3aabf6ff86",
+      measurementId: "G-9P7CVZJB57"
+    };
 
-        // Guardar el objeto Firestore en global para acceder desde fuera
-        window.firestore = db;
-        window.setDoc = setDoc;
-        window.doc = doc;
-    </script>
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getFirestore(app);
 
-    <script>
-        async function verificarUsuario() {
-            const nombreUsuario = document.getElementById("usuario").value.trim();
-            if (nombreUsuario !== "") {
-                try {
-                    // Guardar en Firestore en la colección "usuarios" con ID = nombreUsuario
-                    const usuarioRef = window.doc(window.firestore, "usuarios", nombreUsuario);
-                    await window.setDoc(usuarioRef, {
-                        nombre: nombreUsuario,
-                        // Inicializamos el array de tests para este usuario
-                        tests: []
-                    });
+    // Exponer funciones globales
+    window.firestore = db;
+    window.setDoc = setDoc;
+    window.doc = doc;
+  </script>
 
-                    // Guardar nombre en localStorage para usar en otras páginas
-                    localStorage.setItem("usuario", nombreUsuario);
+  <!-- Script que usa las funciones de Firestore -->
+  <script>
+    async function verificarUsuario() {
+      const nombreUsuario = document.getElementById("usuario").value.trim();
+      if (nombreUsuario !== "") {
+        try {
+          const usuarioRef = window.doc(window.firestore, "usuarios", nombreUsuario);
+          await window.setDoc(usuarioRef, {
+            nombre: nombreUsuario,
+            tests: []
+          });
 
-                    // Redirigir
-                    window.location.href = "seleccion.html";
-                } catch (error) {
-                    alert("Error al guardar el usuario: " + error.message);
-                }
-            } else {
-                alert("Por favor, ingresa tu nombre de usuario.");
-            }
+          localStorage.setItem("usuario", nombreUsuario);
+          window.location.href = "seleccion.html";
+        } catch (error) {
+          alert("Error al guardar el usuario: " + error.message);
         }
-    </script>
+      } else {
+        alert("Por favor, ingresa tu nombre de usuario.");
+      }
+    }
+  </script>
 
     <style>
         body {
