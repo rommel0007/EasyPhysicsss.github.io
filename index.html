@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio de Sesión</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inicio de Sesión</title>
 
-    <script type="module">
+  <!-- Firebase y lógica -->
+  <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
     import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    // Configuración Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyBEoZUWxPNjkBbBxHULkXjWjLthGg63638",
       authDomain: "easyphysics-5c43e.firebaseapp.com",
@@ -21,12 +21,10 @@
       measurementId: "G-9P7CVZJB57"
     };
 
-    // Inicializar Firebase
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
     const db = getFirestore(app);
 
-    // Función para guardar el usuario
     async function verificarUsuario() {
       const nombreUsuario = document.getElementById("usuario").value.trim();
       if (nombreUsuario !== "") {
@@ -47,98 +45,100 @@
       }
     }
 
-    // Asignar al botón
-    document.getElementById("btnIngresar").addEventListener("click", verificarUsuario);
+    // Asignar evento después de que el DOM cargue
+    window.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("btnIngresar").addEventListener("click", verificarUsuario);
+    });
   </script>
 
-    <style>
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #f2f2f2;
-        }
+  <!-- Estilos -->
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f2f2f2;
+    }
 
-        .deslizar {
-            animation: deslizarAbajo 1s ease-out forwards;
-        }
+    .deslizar {
+      animation: deslizarAbajo 1s ease-out forwards;
+    }
 
-        @keyframes deslizarAbajo {
-            from {
-                transform: translateY(-100px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
+    @keyframes deslizarAbajo {
+      from {
+        transform: translateY(-100px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
 
-        .elemento {
-            width: 300px;
-            padding: 60px;
-            border: 10px solid #e3e3e3;
-            border-radius: 20px;
-            background-color: #f4f4f4;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
+    .elemento {
+      width: 300px;
+      padding: 60px;
+      border: 10px solid #e3e3e3;
+      border-radius: 20px;
+      background-color: #f4f4f4;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
 
-        .app-title h1 {
-            margin: 0 0 20px 0;
-        }
+    .app-title h1 {
+      margin: 0 0 20px 0;
+    }
 
-        .login-form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
 
-        .login-field {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 14px;
-        }
+    .login-field {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
 
-        .login-button {
-            padding: 12px 24px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+    .login-button {
+      padding: 12px 24px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
 
-        .login-button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    .login-button:hover {
+      background-color: #45a049;
+    }
+  </style>
 </head>
-
 <body>
-    <div class="deslizar">
-        <div class="elemento">
-            <div class="app-title">
-                <h1>
-                    <img src="usuarioo.png" alt="Usuario" width="200" height="200">
-                </h1>
-            </div>
-            <div class="login-form">
-                <input type="text" class="login-field" id="usuario" placeholder="Usuario">
-                <button class="login-button" onclick="verificarUsuario()">Entrar</button>
-            </div>
-        </div>
+  <div class="deslizar">
+    <div class="elemento">
+      <div class="app-title">
+        <h1>
+          <img src="usuarioo.png" alt="Usuario" width="200" height="200" />
+        </h1>
+      </div>
+      <div class="login-form">
+        <input type="text" class="login-field" id="usuario" placeholder="Usuario" />
+        <button class="login-button" id="btnIngresar">Entrar</button>
+      </div>
     </div>
+  </div>
 </body>
 </html>
